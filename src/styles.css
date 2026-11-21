@@ -852,7 +852,11 @@ a:focus-visible {
   display: none;
 }
 
+/* The featured card spans two rows; its media stretches to fill that height so the
+   column ends flush with the two cards beside it instead of leaving a gap. */
 .project-featured {
+  display: flex;
+  flex-direction: column;
   grid-row: span 2;
 }
 
@@ -874,7 +878,9 @@ a:focus-visible {
 }
 
 .project-featured .project-media {
-  aspect-ratio: 0.95;
+  flex: 1 1 auto;
+  min-height: 24rem;
+  aspect-ratio: auto;
 }
 
 .project-media > img {
@@ -1646,6 +1652,7 @@ a:focus-visible {
 
   .project-featured .project-media,
   .project-media {
+    min-height: 0;
     aspect-ratio: 1.4;
   }
 
@@ -1944,5 +1951,91 @@ a:focus-visible {
     animation: none;
     opacity: 1;
     transform: translateX(-50%);
+  }
+}
+
+/* ---------- Shared utilities ---------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Side quest banner (links to the Courier Run mini-game) ---------- */
+
+.side-quest {
+  padding-top: clamp(1rem, 3vw, 2rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.side-quest-panel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.5rem);
+  border: 1px dashed rgba(203, 255, 77, 0.4);
+  background: var(--ink-raised);
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.side-quest-panel:hover {
+  border-color: var(--acid);
+  transform: translateY(-2px);
+}
+
+.side-quest-badge {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  background: var(--acid);
+  color: var(--ink);
+  font-size: 1.1rem;
+}
+
+.side-quest-copy {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.side-quest-copy .eyebrow {
+  margin: 0;
+}
+
+.side-quest-copy strong {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.side-quest-copy strong span {
+  color: var(--acid);
+}
+
+.side-quest-text {
+  color: var(--muted);
+}
+
+.side-quest-cta {
+  color: var(--acid);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+  .side-quest-panel {
+    grid-template-columns: auto 1fr;
+  }
+
+  .side-quest-cta {
+    grid-column: 1 / -1;
   }
 }
